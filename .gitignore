@@ -1,0 +1,30 @@
+# Python
+.venv/
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Django
+db.sqlite3
+media/
+staticfiles/
+
+# Test artifacts
+.tmp_test_media/
+.tmp_test_templates/
+
+# Environment — NEVER commit real secrets
+.env
+.env.*
+!.env.example
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Logs
+*.log
