@@ -135,9 +135,10 @@ DATABASES = {
 # Hosts & CORS
 # ---------------------------------------------------------------------------
 
-ALLOWED_HOSTS: list[str] = ["127.0.0.1", "localhost"]
+ALLOWED_HOSTS: list[str] = ["127.0.0.1", "localhost", "0.0.0.0"]
 
-if _vercel_env:
+if _is_managed:
+    ALLOWED_HOSTS.append(".railway.app")
     ALLOWED_HOSTS.append(".vercel.app")
 
 _vercel_host = os.getenv("VERCEL_URL", "").strip()
@@ -148,7 +149,10 @@ _railway_host = os.getenv("RAILWAY_PUBLIC_DOMAIN", "").strip()
 if _railway_host:
     ALLOWED_HOSTS.append(_railway_host)
 
+# Add any custom hosts from env
 ALLOWED_HOSTS.extend(_env_list("DJANGO_ALLOWED_HOSTS"))
+
+# Cleanup duplicates
 ALLOWED_HOSTS = list(dict.fromkeys(ALLOWED_HOSTS))
 
 CORS_ALLOWED_ORIGINS: list[str] = list(dict.fromkeys(_env_list("CORS_ALLOWED_ORIGINS")))
